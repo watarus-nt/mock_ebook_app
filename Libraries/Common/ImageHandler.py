@@ -78,3 +78,4 @@ class ImageHandler(object):
         print "*INFO* Clicking image at X=%s, Y=%s" % (img_location_x, img_location_y)
         pyautogui.click(img_location_x, img_location_y)
         time.sleep(1)
+

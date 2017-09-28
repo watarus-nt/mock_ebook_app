@@ -1,3 +1,5 @@
 .idea/
 Results
 *.pyc
+Libraries/Common/robotframework-appiumlibrary-masterbuild
+Libraries/Common/.cache/
