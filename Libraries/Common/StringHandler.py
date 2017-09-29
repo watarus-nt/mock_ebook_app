@@ -15,3 +15,11 @@ class StringHandler(object):
         else:
             print "*INFO* %s contains %s" % (input_text, text_to_verify)
             return 0
+
+    def validate_input_param(self, expected_input_param, actual_input_param):
+        print "*INFO* validate_input_param() - valdating input param"
+        _result = 1
+        if actual_input_param == expected_input_param:
+            _result = 0
+
+        return _result

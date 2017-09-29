@@ -38,13 +38,16 @@ class SimpleCalculatorTests(unittest.TestCase):
         self.mouseHandler = MouseHandler()
 
     def tearDown(self):
-        # self.driver.close()
-        pass
+        for window in self.driver.window_handles:
+            self.driver.switch_to.window(window)
+            self.driver.close()
 
 
     def test_initialize(self):
+        time.sleep(3)
         x, y = self.imageHandler.get_image_location('../../images/book3title.PNG')
         self.mouseHandler.click_at_coordinate(x, y - 80)
+        time.sleep(3)
 
         self.switch_window()
         self.driver.find_element_by_accessibility_id('button-bookmark').click()

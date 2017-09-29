@@ -18,6 +18,12 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     # Public, open and close
 
+    def close_all_open_window(self):
+        """Closes all windows of the current application."""
+        for window in self.driver.window_handles:
+            self.driver.switch_to.window(window)
+            self.driver.close()
+            
     def close_application(self):
         """Closes the current application."""
         self._debug('Closing application with session id %s' % self._current_application().session_id)

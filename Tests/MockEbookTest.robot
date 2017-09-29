@@ -4,7 +4,7 @@ Suite Setup       Open App
 Suite Teardown    Close App
 Resource          ../Resources/Common.robot    #Suite Teardown    Common.Close Calculator App
 Resource          ../Resources/MockEbookApp.robot
-Library           AppiumLibrary    timeout=10
+Resource          ../Resources/PO/Bookmark.robot
 
 
 
@@ -18,9 +18,12 @@ ${APP_ID}           jp.co.sharp.ebook.ebookapp_h35559jr9hy9m!jp.co.sharp.ebook.e
 #robot -d Results -b debug.log Tests\MockEbookTest.robot
 
 *** Test Cases ***
-Test case 01
+Open a book and add bookmark to that book
     [Documentation]  First test case
-    Open Book From Bookshelf  images/book3title.PNG
+    MockEbookApp.Open Book From Bookshelf  images/book3title.PNG
+    Bookmark.Open Bookmark menu pallet
+    Bookmark.Add Bookmark Text  bookmark text
+    Bookmark.Click Ok Button From Bookmark Pallet
 
 
 

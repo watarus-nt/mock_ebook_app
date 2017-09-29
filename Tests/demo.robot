@@ -26,3 +26,4 @@ Open a book from bookshelf and add bookmark
     click element    accessibility_id=bookmark_name
     Clear Text    accessibility_id=bookmark_name
     Input Text    accessibility_id=bookmark_name    demo_bookmard
+    close all open window
