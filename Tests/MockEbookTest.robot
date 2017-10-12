@@ -25,5 +25,10 @@ Open a book and add bookmark to that book
     Bookmark.Add Bookmark Text  bookmark text
     Bookmark.Click Ok Button From Bookmark Pallet
 
+Verify Element Text
+    [Tags]  w
+
+    MockEbookApp.Verify Text On GUI
+
 
 
