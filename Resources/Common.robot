@@ -18,3 +18,8 @@ Click GUI Element
     wait until element is visible       ${locator}
     click element                       ${locator}
 
+Switch Between Bookshlef And Viewer
+    [Documentation]  Keyword to swith between bookshelf and viewer windows
+    sleep  2s
+    switch window
+

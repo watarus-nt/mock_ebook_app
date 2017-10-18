@@ -3,3 +3,8 @@ Results
 *.pyc
 Libraries/Common/robotframework-appiumlibrary-masterbuild
 Libraries/Common/.cache/
+Tests/.cache/
+bs*.xml
+IntegrationBuild_20171004.01_BookShelf.xml.xmlviewer.xml
+IntegrationBuild_20171004.01_BookShelf.xml.xml
+viewer.xml

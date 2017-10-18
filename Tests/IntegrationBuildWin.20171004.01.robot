@@ -3,7 +3,7 @@ Documentation     To test mock Ebook app for SharpUC Phase 5 application
 Suite Setup       Open App
 Suite Teardown    Close App
 Resource          ../Resources/Common.robot    #Suite Teardown    Common.Close Calculator App
-Resource          ../Resources/MockEbookApp.robot
+Resource          ../Resources/IntegrationBuild.robot
 Resource          ../Resources/PO/Bookmark.robot
 
 
@@ -18,15 +18,19 @@ ${APP_ID}           jp.co.sharp.ebook.ebookapp_h35559jr9hy9m!jp.co.sharp.ebook.e
 #robot -d Results -b debug.log Tests\MockEbookTest.robot
 
 *** Test Cases ***
-Open a book and add bookmark to that book
-    [Documentation]  First test case
-    MockEbookApp.Open Book From Bookshelf By Image   images/book3title.PNG
-    Bookmark.Open Bookmark menu pallet
-    Bookmark.Add Bookmark Text  bookmark text
-    Bookmark.Click Ok Button From Bookmark Pallet
-    Close Viewer
+#Open a book and add bookmark to that book
+#    [Documentation]  First test case
+#    MockEbookApp.Open Book From Bookshelf By Image  images/book3title.PNG
+#    Bookmark.Open Bookmark menu pallet
+#    Bookmark.Add Bookmark Text  bookmark text
+#    Bookmark.Click Ok Button From Bookmark Pallet
 
-
+Vreify new build
+    [Tags]  w
+    Test new build
+    sleep  3s
+#    Get Page Source  IntegrationBuild_20171004.01_BookShelf.xml
+#    MockEbookApp.Verify Text On GUI
 
 
 
