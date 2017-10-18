@@ -6,6 +6,7 @@ import inspect
 from appium import webdriver
 from AppiumLibrary.utils import ApplicationCache
 from .keywordgroup import KeywordGroup
+import time
 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
@@ -15,6 +16,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
         self._cache = ApplicationCache()
         self._timeout_in_secs = float(5)
         self.driver = None
+        self.current_window = None
+        self.available_windows = None
 
     # Public, open and close
 
@@ -23,7 +26,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         for window in self.driver.window_handles:
             self.driver.switch_to.window(window)
             self.driver.close()
-            
+
     def close_application(self):
         """Closes the current application."""
         self._debug('Closing application with session id %s' % self._current_application().session_id)
@@ -68,10 +71,23 @@ class _ApplicationManagementKeywords(KeywordGroup):
         Please use only when your applicaiton has just two windows
         """
         current = self.driver.current_window_handle
-        for window in self.driver.window_handles:
+        self.available_windows = self.driver.window_handles
+        for window in self.available_windows:
             if window != current:
-                self.driver.switch_to.window(window)    
-                
+                self.driver.switch_to.window(window)
+                self.current_window = window
+
+    def switch_window_after_closing_a_child_window(self):
+        """After closing a child window,
+        please use this keyword to switch back to main window
+        """
+
+        for window in self.available_windows:
+            if window != self.current_window:
+                self.driver.switch_to.window(window)
+
+        time.sleep(1)
+
     def switch_application(self, index_or_alias):
         """Switches the active application by index or alias.
 
@@ -158,7 +174,8 @@ class _ApplicationManagementKeywords(KeywordGroup):
         if ll == 'NONE':
             return ''
         else:
-            if  "run_keyword_and_ignore_error" not in [check_error_ignored[3] for check_error_ignored in inspect.stack()]:
+            if "run_keyword_and_ignore_error" not in [check_error_ignored[3] for check_error_ignored in
+                                                      inspect.stack()]:
                 source = self._current_application().page_source
                 self._log(source, ll)
                 return source
@@ -211,24 +228,24 @@ class _ApplicationManagementKeywords(KeywordGroup):
 
     def get_window_height(self):
         """Get current device height.
-        
+
         Example:
         | ${width}       | Get Window Height |
         | ${height}      | Get Window Height |
         | Click A Point  | ${width           | ${height} |
-               
+
         New in AppiumLibrary 1.4.5
         """
         return self._current_application().get_window_size()['height']
 
     def get_window_width(self):
         """Get current device width.
-        
+
         Example:
         | ${width}       | Get Window Height |
         | ${height}      | Get Window Height |
         | Click A Point  | ${width           | ${height} |
-        
+
         New in AppiumLibrary 1.4.5
         """
         return self._current_application().get_window_size()['width']
@@ -256,7 +273,7 @@ class _ApplicationManagementKeywords(KeywordGroup):
         except Exception as e:
             raise e
         return capability
-        
+
     # Private
 
     def _current_application(self):
